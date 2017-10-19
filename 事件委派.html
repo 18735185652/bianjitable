@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*border-collapse collapse*/
+        /*table-layout fixed*/
+        table{
+            width: 800px;
+            border: 1px solid red;
+            margin:0 auto;
+            border-collapse:collapse;
+
+        }
+        table th,tr,td{
+            border:1px solid red;
+            text-align: center;
+            width: 200px;
+            height: 30px;
+
+
+        }
+        .del{
+            color:red;
+            cursor:pointer;
+        }
+        .add{
+            cursor: pointer;
+        }
+        tbody tr td input{
+            width: 100%;
+            height: 100%;
+            border:none;
+            background:red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--<tr>-->
+            <!--<td>张三</td>-->
+            <!--<td>18</td>-->
+            <!--<td>男</td>-->
+            <!--<td class="del">删除</td>-->
+        <!--</tr>-->
+    </tbody>
+    <tfoot>
+        <tr >
+            <td colspan="4" class="add">+</td>
+        </tr>
+    </tfoot>
+</table>
+<!--<input type="number" Min="10" max="100">-->
+</body>
+<script>
+    let add=document.querySelector(".add")
+    let tbody=document.querySelector("tbody")
+
+    add.onclick=function(){
+        trobj=document.createElement("tr")
+        trobj.innerHTML="<td class='text'></td><td class='age'></td><td></td><td class='del'>删除</td>"
+        tbody.appendChild(trobj)
+    }
+
+    tbody.onclick=function(e){
+       let target=e.target;
+        if(target.className=="del"){
+            tbody.removeChild(target.parentNode)
+        }
+    }
+
+    tbody.ondblclick=function(e){
+        let target=e.target;
+        let val=target.innerHTML;
+        if(target.className!="del"){
+            let inputobj=document.createElement("input")
+            inputobj.value=val;
+            if(target.className=="age"){
+                inputobj.type="number";
+                inputobj.min="10";
+                inputobj.max="100";
+            }else if(target.class=="text"){
+                inputobj.type="text"
+            }
+            target.innerHTML=""
+            target.appendChild(inputobj)
+            inputobj.onblur=function(){
+                target.innerHTML=inputobj.value
+            }
+            inputobj.focus()
+
+        }
+    }
+    
+    
+</script>
+</html>
